@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #0f172a;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+}
+
+::selection {
+  background: #22D3EE; /* cyan-400 */
+  color: #0f172a; /* slate-900 */
+}
+
+[data-debug='true'] * {
+  outline: 1px dashed rgba(34, 211, 238, 0.35);
+  outline-offset: 2px;
+}
+
+@layer components {
+  /* Reusable interactive card hover effect */
+  .nv-card-hover {
+    /* Use a single `transition` utility so both transform and box-shadow transition together */
+    @apply transition duration-300 ease-out will-change-transform hover:-translate-y-1 hover:scale-[1.01] hover:shadow-2xl hover:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/40;
+  }
+}
