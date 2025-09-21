@@ -49,6 +49,26 @@ src/
 - **Sample coverage:** Hero CTA rendering and DebugConsole state toggling to guard key flows
 - **Configuration:** jsdom environment, CSS modules mocked, coverage collection ready for CI
 
+## Unit Tests
+
+Component test files are located in `src/components/__tests__/`:
+
+- `src/components/__tests__/AppLayout.test.tsx`
+- `src/components/__tests__/DebugConsole.test.tsx`
+- `src/components/__tests__/FeatureHighlights.test.tsx`
+- `src/components/__tests__/Footer.test.tsx`
+- `src/components/__tests__/Header.test.tsx`
+- `src/components/__tests__/HeroSection.test.tsx`
+- `src/components/__tests__/InsightsSection.test.tsx`
+- `src/components/__tests__/MotionCardDeck.test.tsx`
+- `src/components/__tests__/PricingSection.test.tsx`
+
+Run all tests:
+
+```bash
+pnpm test
+```
+
 ## Debugging & Observability
 - `DebugProvider` persists state via `localStorage` and `URLSearchParams` for quick toggling
 - Runtime console surfaces locale, timezone, connection, memory, and session uptime data
