@@ -9,6 +9,7 @@ VeroVault is a modern, mobile-first fintech experience inspired by best-in-class
 - [✨ Highlights](#-highlights)
 - [🧰 Tech Stack](#-tech-stack)
 - [🗂️ Project Structure](#️-project-structure)
+- [🛠️ Build System](#-build-system)
 - [🚀 Getting Started](#-getting-started)
 - [🔒 Environment Configuration](#-environment-configuration)
 - [🧾 Available Scripts](#-available-scripts)
@@ -72,6 +73,27 @@ src/
     HomeView.tsx            # Home composition
   setupTests.ts             # JSDOM polyfills (e.g., IntersectionObserver)
 ```
+
+## 🛠️ Build System
+
+The build pipeline transpiles modern TypeScript/JSX, processes CSS (Tailwind + PostCSS), injects environment variables, and outputs optimized bundles with code-splitting.
+
+```mermaid
+flowchart LR
+  A[Source Code\nTS/TSX + CSS + Assets] --> B[Babel\n@babel/preset-env\n@babel/preset-react\n@babel/preset-typescript]
+  B --> C[Webpack Loaders\n- babel-loader\n- postcss-loader (Tailwind, Autoprefixer)]
+  C --> D[Webpack Plugins\n- HtmlWebpackPlugin\n- MiniCssExtractPlugin (prod)\n- Dotenv + DefinePlugin (API_BASE_URL)\n- BundleAnalyzer (optional)]
+  D --> E[Optimization\nSplitChunks (vendor/runtime)\nRuntimeChunk: single]
+  E --> F[Outputs\nstatic/js/*, static/css/*, index.html]
+
+  A -. dev .-> G[Webpack Dev Server\nHMR + historyApiFallback]
+  G -.-> H[Browser]
+```
+
+Notes
+- `views/HomeView.tsx` lazy-loads heavy sections to reduce the initial bundle.
+- `webpack.config.js` extracts vendor libraries (React, framer-motion, React Query) for better caching.
+- Environment variables (e.g., `API_BASE_URL`) are injected at build time via DefinePlugin and dotenv.
 
 ## 🚀 Getting Started
 
