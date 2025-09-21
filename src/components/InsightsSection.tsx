@@ -10,7 +10,7 @@ export const InsightsSection = () => {
   const { data, isLoading, isError } = useQuery({
     queryKey: ['insights'],
     queryFn: fetchFinancialInsights,
-    refetchInterval: false,
+    refetchInterval: 15_000,
     staleTime: 10_000
   });
 
