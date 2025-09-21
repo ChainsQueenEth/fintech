@@ -1,6 +1,6 @@
 # VeroVault — Next-gen Fintech Web App
 
-[![CI](https://github.com/ChainsQueenEth/fintech/actions/workflows/ci.yml/badge.svg)](https://github.com/ChainsQueenEth/fintech/actions/workflows/ci.yml)
+[![CI](https://github.com/ChainsQueenEth/fintech/actions/workflows/ci.yml/badge.svg)](https://github.com/ChainsQueenEth/fintech/actions/workflows/ci.yml) [![Live Demo](https://img.shields.io/badge/Live-Demo-2ea44f?logo=githubpages&logoColor=white)](https://chainsqueeneth.github.io/fintech/)
 
 VeroVault is a modern, mobile-first fintech experience inspired by best-in-class digital banks. It blends React 18, TypeScript, Tailwind CSS, Framer Motion, and React Query into a cohesive design system and developer workflow. The stack is wired together with Webpack 5, Babel, and PostCSS for a fully configurable build pipeline.
 
