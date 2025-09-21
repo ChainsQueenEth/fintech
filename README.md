@@ -92,6 +92,7 @@ flowchart LR
 Notes
 - `views/HomeView.tsx` lazy-loads heavy sections to reduce the initial bundle.
 - `webpack.config.js` extracts vendor libraries for better caching via `splitChunks` and uses `runtimeChunk: 'single'`.
+- Webpack orchestrates Loaders, Plugins, Optimization, Dev Server, and Outputs. Babel runs inside Webpack via `babel-loader` to transpile TS/JSX to JS.
 - Babel presets: `preset-env`, `preset-react`, `preset-typescript`.
 - Loaders: `babel-loader`, `postcss-loader` (Tailwind, Autoprefixer).
 - Plugins: `HtmlWebpackPlugin`, `MiniCssExtractPlugin` (production), `dotenv` + `DefinePlugin` for `API_BASE_URL`, optional `BundleAnalyzer`.
