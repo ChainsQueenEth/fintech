@@ -80,20 +80,22 @@ The build pipeline transpiles modern TypeScript/JSX, processes CSS (Tailwind + P
 
 ```mermaid
 flowchart LR
-  A[Source Code<br/>TS/TSX + CSS + Assets] --> B[Babel<br/>preset-env<br/>preset-react<br/>preset-typescript]
-  B --> C[Webpack Loaders<br/>babel-loader<br/>postcss-loader with Tailwind and Autoprefixer]
-  C --> D[Webpack Plugins<br/>HtmlWebpackPlugin<br/>MiniCssExtractPlugin (prod)<br/>Dotenv and DefinePlugin for API_BASE_URL<br/>BundleAnalyzer (optional)]
-  D --> E[Optimization<br/>SplitChunks (vendor/runtime)<br/>RuntimeChunk: single]
-  E --> F[Outputs<br/>static/js/*, static/css/*, index.html]
-
-  A -. dev .-> G[Webpack Dev Server<br/>HMR + historyApiFallback]
+  A[Source Code] --> B[Babel]
+  B --> C[Loaders]
+  C --> D[Plugins]
+  D --> E[Optimization]
+  E --> F[Outputs]
+  A -. dev .-> G[Dev Server]
   G -.-> H[Browser]
 ```
 
 Notes
 - `views/HomeView.tsx` lazy-loads heavy sections to reduce the initial bundle.
-- `webpack.config.js` extracts vendor libraries (React, framer-motion, React Query) for better caching.
-- Environment variables (e.g., `API_BASE_URL`) are injected at build time via DefinePlugin and dotenv.
+- `webpack.config.js` extracts vendor libraries for better caching via `splitChunks` and uses `runtimeChunk: 'single'`.
+- Babel presets: `preset-env`, `preset-react`, `preset-typescript`.
+- Loaders: `babel-loader`, `postcss-loader` (Tailwind, Autoprefixer).
+- Plugins: `HtmlWebpackPlugin`, `MiniCssExtractPlugin` (production), `dotenv` + `DefinePlugin` for `API_BASE_URL`, optional `BundleAnalyzer`.
+- Outputs: hashed assets in `static/js` and `static/css` plus `index.html`.
 
 ## 🚀 Getting Started
 
