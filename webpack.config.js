@@ -5,11 +5,14 @@ const Dotenv = require('dotenv-webpack');
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const webpack = require('webpack');
 
-const isProduction = process.env.NODE_ENV === 'production';
-const devPort = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+// Export a function so we can read argv.mode reliably (Webpack doesn't set process.env.NODE_ENV for the config runtime)
+/** @type {(env: any, argv: { mode?: 'development' | 'production' | 'none' }) => import('webpack').Configuration} */
+module.exports = (env = {}, argv = {}) => {
+  const mode = argv.mode || process.env.WEBPACK_MODE || 'development';
+  const isProduction = mode === 'production';
+  const devPort = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
-/** @type {import('webpack').Configuration} */
-module.exports = {
+  return {
   entry: path.resolve(__dirname, 'src/index.tsx'),
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -19,9 +22,9 @@ module.exports = {
       : 'static/js/[name].chunk.js',
     assetModuleFilename: 'static/media/[hash][ext][query]',
     clean: true,
-    // Reason: GitHub Pages serves the app from /<repo>/, so we need a repo-relative base path in production.
-    // For local dev, keep root to work with webpack-dev-server.
-    publicPath: isProduction ? '/fintech/' : '/'
+    // Reason: Use relative URLs for GitHub Pages to avoid absolute-root 404s.
+    // 'auto' makes Webpack compute publicPath at runtime based on current location.
+    publicPath: isProduction ? 'auto' : '/'
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -139,4 +142,5 @@ module.exports = {
     maxEntrypointSize: 512000, // 500 KB
     maxAssetSize: 512000
   }
+  };
 };
