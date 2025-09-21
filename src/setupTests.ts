@@ -5,7 +5,6 @@ type IOCallback = (entries: unknown[], observer: unknown) => void;
 type IOEntry = unknown;
 
 class MockIntersectionObserver {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   constructor(_callback: IOCallback) {}
   observe(): void {}
   unobserve(): void {}
