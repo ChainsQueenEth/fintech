@@ -80,13 +80,13 @@ The build pipeline transpiles modern TypeScript/JSX, processes CSS (Tailwind + P
 
 ```mermaid
 flowchart LR
-  A[Source Code\nTS/TSX + CSS + Assets] --> B[Babel\n@babel/preset-env\n@babel/preset-react\n@babel/preset-typescript]
-  B --> C[Webpack Loaders\n- babel-loader\n- postcss-loader (Tailwind, Autoprefixer)]
-  C --> D[Webpack Plugins\n- HtmlWebpackPlugin\n- MiniCssExtractPlugin (prod)\n- Dotenv + DefinePlugin (API_BASE_URL)\n- BundleAnalyzer (optional)]
-  D --> E[Optimization\nSplitChunks (vendor/runtime)\nRuntimeChunk: single]
-  E --> F[Outputs\nstatic/js/*, static/css/*, index.html]
+  A[Source Code<br/>TS/TSX + CSS + Assets] --> B[Babel<br/>@babel/preset-env<br/>@babel/preset-react<br/>@babel/preset-typescript]
+  B --> C[Webpack Loaders<br/>- babel-loader<br/>- postcss-loader (Tailwind, Autoprefixer)]
+  C --> D[Webpack Plugins<br/>- HtmlWebpackPlugin<br/>- MiniCssExtractPlugin (prod)<br/>- Dotenv + DefinePlugin (API_BASE_URL)<br/>- BundleAnalyzer (optional)]
+  D --> E[Optimization<br/>SplitChunks (vendor/runtime)<br/>RuntimeChunk: single]
+  E --> F[Outputs<br/>static/js/*, static/css/*, index.html]
 
-  A -. dev .-> G[Webpack Dev Server\nHMR + historyApiFallback]
+  A -. dev .-> G[Webpack Dev Server<br/>HMR + historyApiFallback]
   G -.-> H[Browser]
 ```
 
