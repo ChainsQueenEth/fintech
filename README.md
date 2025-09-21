@@ -80,7 +80,7 @@ The build pipeline transpiles modern TypeScript/JSX, processes CSS (Tailwind + P
 
 ```mermaid
 flowchart LR
-  A[Source Code<br/>TS/TSX + CSS + Assets] --> B[Babel<br/>@babel/preset-env<br/>@babel/preset-react<br/>@babel/preset-typescript]
+  A[Source Code<br/>TS/TSX + CSS + Assets] --> B[Babel<br/>preset-env<br/>preset-react<br/>preset-typescript]
   B --> C[Webpack Loaders<br/>- babel-loader<br/>- postcss-loader (Tailwind, Autoprefixer)]
   C --> D[Webpack Plugins<br/>- HtmlWebpackPlugin<br/>- MiniCssExtractPlugin (prod)<br/>- Dotenv + DefinePlugin (API_BASE_URL)<br/>- BundleAnalyzer (optional)]
   D --> E[Optimization<br/>SplitChunks (vendor/runtime)<br/>RuntimeChunk: single]
