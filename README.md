@@ -66,6 +66,17 @@ Rules are configured in `eslint.config.js` (flat config). Notable plugins includ
 - **Sample coverage:** Hero CTA rendering and DebugConsole state toggling to guard key flows
 - **Configuration:** jsdom environment, CSS modules mocked, coverage collection ready for CI
 
+### jest.config.ts
+
+Jest is configured in `jest.config.ts`:
+
+- `preset: 'ts-jest'` to run TypeScript tests without a separate build
+- `testEnvironment: 'jsdom'` to simulate the browser for React components
+- `moduleNameMapper` for path alias `@/*` and to mock CSS with `identity-obj-proxy`
+- `setupFilesAfterEnv` loads `src/setupTests.ts` (e.g., JSDOM polyfills)
+- `collectCoverageFrom` and `coverageDirectory` enable coverage in CI
+- `reporters`: default plus `jest-junit` writing `junit/junit.xml` (uploaded by CI as an artifact)
+
 ## Unit Tests
 
 Component test files are located in `src/components/__tests__/`:

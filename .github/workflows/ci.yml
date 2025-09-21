@@ -36,9 +36,16 @@ jobs:
         run: pnpm typecheck
 
       - name: Test
-        run: pnpm test -- --ci --reporters=default --reporters=jest-junit
+        run: pnpm test -- --ci
         env:
           CI: true
+
+      - name: Upload JUnit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: junit
+          path: junit/junit.xml
 
       - name: Build
         run: pnpm build

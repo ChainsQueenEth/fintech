@@ -9,7 +9,17 @@ const config: Config = {
   },
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/**/index.ts', '!src/**/*.d.ts'],
-  coverageDirectory: 'coverage'
+  coverageDirectory: 'coverage',
+  reporters: [
+    'default',
+    [
+      'jest-junit',
+      {
+        outputDirectory: 'junit',
+        outputName: 'junit.xml'
+      }
+    ]
+  ]
 };
 
 export default config;
