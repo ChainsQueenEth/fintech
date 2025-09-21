@@ -33,7 +33,7 @@ export const Header = () => {
     >
       <nav className="mx-auto flex items-center justify-between max-w-[1200px] px-5 py-3 md:px-8 md:py-4">
         <m.button
-          {...motionHoverProps(3, 1.01)}
+          {...motionHoverProps(8, 1.03)}
           type="button"
           onClick={() => {
             window.scrollTo({ top: 0, behavior: 'smooth' });

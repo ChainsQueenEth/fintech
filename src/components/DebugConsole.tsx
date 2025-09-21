@@ -60,7 +60,7 @@ export const DebugConsole = () => {
         {...motionHoverProps(3, 1.01)}
         onClick={() => toggleDebug()}
         aria-pressed={isDebug}
-        className="fixed right-5 bottom-5 z-30 rounded-full px-4 py-2 font-semibold text-slate-900 bg-gradient-to-tr from-blue-600 to-cyan-400 shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:shadow-xl hover:z-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/40 active:scale-95"
+        className="fixed right-5 bottom-5 z-30 px-7 py-3 rounded-[20px] bg-gradient-to-tr from-blue-600 to-cyan-400 text-slate-900 font-bold shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:shadow-xl hover:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/40 active:scale-95"
       >
         {isDebug ? 'Exit debug' : 'Debug mode'}
       </m.button>
