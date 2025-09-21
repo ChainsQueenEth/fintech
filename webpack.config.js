@@ -92,7 +92,7 @@ module.exports = {
       : [])
     .concat(process.env.ANALYZE ? [new BundleAnalyzerPlugin()] : []),
   ],
-  devtool: isProduction ? false : 'eval-source-map',
+  devtool: isProduction ? true : 'eval-source-map',
   optimization: {
     splitChunks: {
       chunks: 'all',
