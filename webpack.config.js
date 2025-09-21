@@ -83,6 +83,27 @@ module.exports = {
     .concat(process.env.ANALYZE ? [new BundleAnalyzerPlugin()] : []),
   ],
   devtool: isProduction ? 'source-map' : 'eval-source-map',
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      cacheGroups: {
+        // Create a separate vendor chunk for react/react-dom and heavy libs
+        vendor: {
+          test: /[\\/]node_modules[\\/](react|react-dom|framer-motion|@tanstack)[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+          priority: 20
+        },
+        // Default group for the rest of node_modules
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: 10,
+          reuseExistingChunk: true
+        }
+      }
+    },
+    runtimeChunk: 'single'
+  },
   devServer: {
     static: {
       directory: path.resolve(__dirname, 'public')
