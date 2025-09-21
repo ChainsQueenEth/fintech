@@ -92,10 +92,14 @@ module.exports = {
       : [])
     .concat(process.env.ANALYZE ? [new BundleAnalyzerPlugin()] : []),
   ],
-  devtool: isProduction ? 'source-map' : 'eval-source-map',
+  devtool: isProduction ? false : 'eval-source-map',
   optimization: {
     splitChunks: {
       chunks: 'all',
+      // Encourage Webpack to split large chunks into smaller pieces
+      minSize: 20000,
+      maxSize: 244000,
+      enforceSizeThreshold: 50000,
       cacheGroups: {
         // Create a separate vendor chunk for react/react-dom and heavy libs
         vendor: {
