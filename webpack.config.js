@@ -14,6 +14,9 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: isProduction ? 'static/js/[name].[contenthash].js' : 'static/js/[name].js',
+    chunkFilename: isProduction
+      ? 'static/js/[name].[contenthash].chunk.js'
+      : 'static/js/[name].chunk.js',
     assetModuleFilename: 'static/media/[hash][ext][query]',
     clean: true,
     publicPath: '/'
@@ -21,7 +24,14 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      '@': path.resolve(__dirname, 'src')
+      '@': path.resolve(__dirname, 'src'),
+      ...(isProduction && process.env.USE_PREACT === 'true'
+        ? {
+            react: 'preact/compat',
+            'react-dom/test-utils': 'preact/test-utils',
+            'react-dom': 'preact/compat'
+          }
+        : {})
     }
   },
   module: {
