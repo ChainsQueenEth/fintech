@@ -39,6 +39,7 @@ src/
 | `pnpm test`        | Execute the Jest test suite once |
 | `pnpm test:watch`  | Watch mode for the Jest suite |
 | `pnpm typecheck`   | Verify TypeScript types without emitting output |
+| `pnpm analyze`     | Build with bundle analyzer to inspect bundle size |
 
 ## Testing Approach
 - **Jest + Testing Library:** Component-driven assertions and accessible queries
@@ -66,3 +67,18 @@ src/
 
 ---
 Crafted to showcase a modern fintech experience and a maintainable front-end foundation.
+
+## Environment Configuration
+
+- Create a `.env` file (see `.env.example`) to set `API_BASE_URL` used by the frontend. When `API_BASE_URL` is not set, the app will fall back to local mock data for insights.
+- The dev server port can be customized with `PORT`.
+
+The value of `API_BASE_URL` is injected at build time via Webpack's `DefinePlugin` and `dotenv-webpack`.
+
+## CI
+
+GitHub Actions workflow is provided at `.github/workflows/ci.yml` to run lint, typecheck, tests, and build on pushes and PRs to `main`/`master`.
+
+## Bundle Analysis
+
+Run `pnpm analyze` to build the app with `webpack-bundle-analyzer` enabled and inspect the output bundle composition.

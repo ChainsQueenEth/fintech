@@ -1,4 +1,15 @@
-export type Insight = {
+ import { z } from 'zod';
+ import { api, parseWith, isApiConfigured } from './api-client';
+
+const insightSchema = z.object({
+  id: z.string(),
+  headline: z.string(),
+  impact: z.enum(['positive', 'neutral', 'negative']),
+  delta: z.number(),
+  updatedAt: z.string()
+});
+
+ export type Insight = {
   id: string;
   headline: string;
   impact: 'positive' | 'neutral' | 'negative';
@@ -30,10 +41,16 @@ const mockInsights: Insight[] = [
   }
 ];
 
-export const fetchFinancialInsights = async (): Promise<Insight[]> => {
+ export const fetchFinancialInsights = async (): Promise<Insight[]> => {
+  // If API is configured, hit the endpoint; otherwise use local mock
+  if (isApiConfigured) {
+    const data = await api.get<unknown>('/insights');
+    return parseWith(z.array(insightSchema), data);
+  }
+
   await new Promise((resolve) => setTimeout(resolve, 420));
   return mockInsights.map((insight) => ({
     ...insight,
     updatedAt: new Date().toISOString()
   }));
-};
+ };

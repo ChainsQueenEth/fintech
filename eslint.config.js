@@ -10,6 +10,7 @@ const reactPlugin = require('eslint-plugin-react');
 const reactHooks = require('eslint-plugin-react-hooks');
 const testingLibrary = require('eslint-plugin-testing-library');
 const jestDom = require('eslint-plugin-jest-dom');
+const a11y = require('eslint-plugin-jsx-a11y');
 
 module.exports = [
   // Global language options: browser + node globals for all source files
@@ -73,10 +74,14 @@ module.exports = [
     plugins: {
       react: reactPlugin,
       'react-hooks': reactHooks,
+      'jsx-a11y': a11y,
     },
     rules: {
       ...(reactPlugin.configs.recommended && reactPlugin.configs.recommended.rules ? reactPlugin.configs.recommended.rules : {}),
       ...(reactHooks.configs.recommended && reactHooks.configs.recommended.rules ? reactHooks.configs.recommended.rules : {}),
+
+      // Accessibility best practices
+      ...(a11y.configs.recommended && a11y.configs.recommended.rules ? a11y.configs.recommended.rules : {}),
 
       'react/react-in-jsx-scope': 'off', // Not needed with React 17+
       'react/prop-types': 'off', // Using TypeScript types instead of PropTypes

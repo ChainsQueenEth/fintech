@@ -1,6 +1,9 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const Dotenv = require('dotenv-webpack');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const webpack = require('webpack');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const devPort = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
@@ -63,6 +66,13 @@ module.exports = {
       template: path.resolve(__dirname, 'public/index.html'),
       favicon: path.resolve(__dirname, 'public/favicon.svg')
     }),
+    new Dotenv({
+      systemvars: true // allow CI/prod env vars to pass through
+    }),
+    new webpack.DefinePlugin({
+      'process.env.API_BASE_URL': JSON.stringify(process.env.API_BASE_URL || ''),
+      __API_BASE_URL__: JSON.stringify(process.env.API_BASE_URL || ''),
+    }),
     ...(isProduction
       ? [
           new MiniCssExtractPlugin({
@@ -70,6 +80,7 @@ module.exports = {
           })
         ]
       : [])
+    .concat(process.env.ANALYZE ? [new BundleAnalyzerPlugin()] : []),
   ],
   devtool: isProduction ? 'source-map' : 'eval-source-map',
   devServer: {
@@ -79,5 +90,10 @@ module.exports = {
     historyApiFallback: true,
     hot: true,
     port: devPort
+  },
+  performance: {
+    hints: isProduction ? 'warning' : false,
+    maxEntrypointSize: 512000, // 500 KB
+    maxAssetSize: 512000
   }
 };
