@@ -47,7 +47,12 @@ jobs:
           name: junit
           path: junit/junit.xml
 
-      - name: Build
+      - name: Build (push)
+        if: github.event_name != 'pull_request'
         run: pnpm build
         env:
           API_BASE_URL: ${{ secrets.API_BASE_URL }}
+
+      - name: Build (PR; mocks only)
+        if: github.event_name == 'pull_request'
+        run: pnpm build
