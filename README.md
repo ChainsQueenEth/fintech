@@ -157,7 +157,7 @@ Adopt a consistent, scalable style to keep the codebase maintainable.
   - Prefer 2-space indentation; trailing commas and semicolons are acceptable per formatter defaults.
 
 - **Naming conventions**
-  - Filenames: `kebab-case` (e.g., `feature-highlights.tsx`).
+  - Filenames: `PascalCase` for React component files (e.g., `Header.tsx`, `HeroSection.tsx`).
   - React components: `PascalCase` exported from their files (e.g., `FeatureHighlights`).
   - Variables/functions: `camelCase`; constants that are truly global can use `UPPER_SNAKE_CASE`.
   - Tests live beside features under `src/components/__tests__/` using `*.test.tsx`.
