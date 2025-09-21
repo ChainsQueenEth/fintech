@@ -19,7 +19,9 @@ module.exports = {
       : 'static/js/[name].chunk.js',
     assetModuleFilename: 'static/media/[hash][ext][query]',
     clean: true,
-    publicPath: '/'
+    // Reason: GitHub Pages serves the app from /<repo>/, so we need a repo-relative base path in production.
+    // For local dev, keep root to work with webpack-dev-server.
+    publicPath: isProduction ? '/fintech/' : '/'
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
@@ -74,6 +76,12 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public/index.html'),
+      favicon: path.resolve(__dirname, 'public/favicon.svg')
+    }),
+    // Also emit a 404.html for GitHub Pages SPA fallback
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public/index.html'),
+      filename: '404.html',
       favicon: path.resolve(__dirname, 'public/favicon.svg')
     }),
     new Dotenv({
