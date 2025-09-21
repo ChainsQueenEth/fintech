@@ -1,12 +1,20 @@
 import '@testing-library/jest-dom';
 
 // Polyfill IntersectionObserver for JSDOM (used by framer-motion's in-view features)
+type IOCallback = (entries: unknown[], observer: unknown) => void;
+type IOEntry = unknown;
+
 class MockIntersectionObserver {
-  constructor(private _callback: IntersectionObserverCallback) {}
-  observe() {}
-  unobserve() {}
-  disconnect() {}
-  takeRecords(): IntersectionObserverEntry[] { return []; }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  constructor(_callback: IOCallback) {}
+  observe(): void {}
+  unobserve(): void {}
+  disconnect(): void {}
+  takeRecords(): IOEntry[] { return []; }
 }
 
-(globalThis as any).IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
+interface GlobalWithIO {
+  IntersectionObserver?: unknown;
+}
+
+(globalThis as GlobalWithIO).IntersectionObserver = MockIntersectionObserver;

@@ -2,7 +2,10 @@
  
  // Reason: Centralized API client to standardize error handling, parsing, and env-driven base URL.
  // In dev, some setups may not have DefinePlugin substitution yet. Avoid hard process references.
- const RAW_ENV = (typeof process !== 'undefined' && (process.env as any)?.API_BASE_URL) || '';
+ const RAW_ENV =
+  typeof process !== 'undefined' && process.env && typeof process.env.API_BASE_URL === 'string'
+    ? (process.env.API_BASE_URL as string)
+    : '';
  const API_BASE_URL = String(RAW_ENV).replace(/\/$/, '');
  export const isApiConfigured = API_BASE_URL.length > 0;
 
@@ -25,7 +28,10 @@ const parseJson = async <T>(res: Response): Promise<T> => {
   }
 };
 
-type RequestOptions = Omit<RequestInit, 'method' | 'body'> & { body?: unknown };
+type RequestOptions = {
+  headers?: Record<string, string>;
+  body?: unknown;
+};
 
 const request = async <T>(
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE',
@@ -40,7 +46,7 @@ const request = async <T>(
   }
 
   const url = `${API_BASE_URL}${path.startsWith('/') ? '' : '/'}${path}`;
-  const headers: HeadersInit = {
+  const headers: Record<string, string> = {
     'Content-Type': 'application/json',
     ...(options.headers || {})
   };
@@ -57,10 +63,15 @@ const request = async <T>(
     let details: unknown;
     try {
       details = await res.json();
-    } catch {}
+    } catch (err) {
+      // swallow JSON parse errors from error payloads
+      void err;
+    }
+    const hasMessage = (o: unknown): o is { message: string } =>
+      typeof o === 'object' && o !== null && typeof (o as Record<string, unknown>).message === 'string';
     throw {
       status: res.status,
-      message: (details as any)?.message || res.statusText || 'Request failed',
+      message: hasMessage(details) ? details.message : res.statusText || 'Request failed',
       details
     } satisfies ApiError;
   }

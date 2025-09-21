@@ -27,6 +27,10 @@ module.exports = [
         navigator: 'readonly',
         Navigator: 'readonly',
         performance: 'readonly',
+        fetch: 'readonly',
+        Headers: 'readonly',
+        Request: 'readonly',
+        Response: 'readonly',
         React: 'readonly',
         // Node (useful for configs and tooling)
         process: 'readonly',
@@ -101,6 +105,7 @@ module.exports = [
         beforeEach: 'readonly',
         afterEach: 'readonly',
         vi: 'readonly', // vitest compat if used
+        jest: 'readonly',
       },
     },
     plugins: {

@@ -45,7 +45,10 @@ export const DebugProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         // Optional: clean up legacy key
         try {
           window.localStorage.removeItem(LEGACY_STORAGE_KEY);
-        } catch {}
+        } catch (e) {
+          // ignore cleanup failure
+          void e;
+        }
       }
       return next;
     });
