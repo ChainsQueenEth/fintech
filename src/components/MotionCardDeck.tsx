@@ -1,4 +1,4 @@
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { motionHoverProps } from '@/design-system/motion/motion-presets';
 
 import { useDebug } from '@/utils/debug';
@@ -29,27 +29,27 @@ export const MotionCardDeck = () => {
       <div className="grid gap-6 lg:grid-cols-[1.2fr_1fr] lg:items-center">
         <div className="space-y-3">
           <p className="text-sm uppercase tracking-[0.4em] text-cyan-200">Playbooks</p>
-          <motion.h2
+          <m.h2
             {...motionHoverProps(2, 1.005)}
             className="text-3xl md:text-4xl font-bold text-white transition hover:-translate-y-0.5 hover:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/40"
           >
             Accelerate treasury, instantly.
-          </motion.h2>
+          </m.h2>
           <p className="text-slate-300 max-w-xl">
             Orchestrate cash, risk, and working capital in real time—beautifully simple, everywhere you operate.
           </p>
-          <motion.button
+          <m.button
             type="button"
             {...motionHoverProps(3, 1.01)}
             onClick={() => log('CTA: Browse playbooks')}
             className="inline-flex items-center gap-2 rounded-xl bg-slate-900/60 px-4 py-2 text-sm font-semibold text-cyan-200 ring-1 ring-cyan-500/40 transition hover:-translate-y-0.5 hover:shadow-lg hover:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/40 active:scale-95"
           >
             Browse playbooks
-          </motion.button>
+          </m.button>
         </div>
         <div className="grid gap-6">
           {useCases.map((useCase, index) => (
-            <motion.div
+            <m.div
               key={useCase.title}
               {...motionHoverProps(6, 1.02)}
               initial={{ opacity: 0, y: 24, rotate: index % 2 ? 2 : -2 }}
@@ -65,14 +65,14 @@ export const MotionCardDeck = () => {
               <span className="mb-3 inline-flex w-fit rounded-full bg-cyan-500/20 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-cyan-200 transition transform group-hover:-translate-y-0.5 group-hover:scale-105">
                 {useCase.badge}
               </span>
-              <motion.h3
+              <m.h3
                 {...motionHoverProps(2, 1.005)}
                 className="text-xl font-semibold text-white transition hover:-translate-y-0.5 hover:z-10"
               >
                 {useCase.title}
-              </motion.h3>
+              </m.h3>
               <p className="text-sm leading-relaxed text-slate-300">{useCase.body}</p>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>

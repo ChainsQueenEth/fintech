@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { motionHoverProps } from '@/design-system/motion/motion-presets';
 
 import { useDebug } from '@/utils/debug';
@@ -55,7 +55,7 @@ export const DebugConsole = () => {
 
   return (
     <>
-      <motion.button
+      <m.button
         type="button"
         {...motionHoverProps(3, 1.01)}
         onClick={() => toggleDebug()}
@@ -63,10 +63,10 @@ export const DebugConsole = () => {
         className="fixed right-5 bottom-5 z-30 rounded-full px-4 py-2 font-semibold text-slate-900 bg-gradient-to-tr from-blue-600 to-cyan-400 shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:shadow-xl hover:z-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/40 active:scale-95"
       >
         {isDebug ? 'Exit debug' : 'Debug mode'}
-      </motion.button>
+      </m.button>
       <AnimatePresence>
         {isDebug ? (
-          <motion.section
+          <m.section
             key="debug-panel"
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -92,7 +92,7 @@ export const DebugConsole = () => {
                 Session uptime <span className="text-slate-200 font-semibold">{uptime}</span>
               </div>
             </div>
-          </motion.section>
+          </m.section>
         ) : null}
       </AnimatePresence>
     </>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { motionHoverProps } from '@/design-system/motion/motion-presets';
 
 import { useDebug } from '@/utils/debug';
@@ -26,13 +26,13 @@ export const Header = () => {
   }, []);
 
   return (
-    <motion.header
+    <m.header
       className="sticky top-0 z-10 backdrop-blur-md bg-slate-900/60 border-b border-white/5"
       animate={{ paddingTop: isCondensed ? 0 : 16, paddingBottom: isCondensed ? 0 : 16 }}
       transition={{ type: 'spring', stiffness: 120, damping: 20 }}
     >
       <nav className="mx-auto flex items-center justify-between max-w-[1200px] px-5 py-3 md:px-8 md:py-4">
-        <motion.button
+        <m.button
           {...motionHoverProps(3, 1.01)}
           type="button"
           onClick={() => {
@@ -46,7 +46,7 @@ export const Header = () => {
             VV
           </span>
           VeroVault
-        </motion.button>
+        </m.button>
         <div className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
             <a
@@ -59,14 +59,14 @@ export const Header = () => {
             </a>
           ))}
         </div>
-        <motion.button
+        <m.button
           {...motionHoverProps(3, 1.01)}
           onClick={() => log('Call-to-action: Get started')}
           className="inline-flex items-center gap-2 rounded-[12px] px-3 py-2 font-semibold text-slate-900 bg-gradient-to-tr from-blue-600 to-cyan-400 shadow-lg shadow-blue-600/20 transition hover:-translate-y-0.5 hover:shadow-xl hover:z-10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/40 active:scale-95"
         >
           Get started
-        </motion.button>
+        </m.button>
       </nav>
-    </motion.header>
+    </m.header>
   );
 };
