@@ -43,6 +43,23 @@ src/
 | `pnpm typecheck`   | Verify TypeScript types without emitting output |
 | `pnpm analyze`     | Build with bundle analyzer to inspect bundle size |
 
+## Linting
+
+ESLint enforces code quality, consistency, and accessibility rules across the codebase.
+
+- Run lints: `pnpm lint`
+- Auto-fix minor issues: `pnpm lint -- --fix`
+
+Linting runs in CI to keep contributions consistent and catch issues early.
+
+Rules are configured in `eslint.config.js` (flat config). Notable plugins include:
+
+- `eslint-plugin-react`, `eslint-plugin-react-hooks`
+- `@typescript-eslint/*`
+- `eslint-plugin-testing-library`, `eslint-plugin-jest-dom`
+- `eslint-plugin-jsx-a11y` for accessibility best practices
+
+
 ## Testing Approach
 - **Jest + Testing Library:** Component-driven assertions and accessible queries
 - **Custom render helper:** `src/utils/test-utils.tsx` wraps with React Query providers (no theme provider needed)
