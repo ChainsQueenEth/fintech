@@ -1,6 +1,6 @@
 # VeroVault — Next-gen Fintech Web App
 
-[![CI](https://github.com/ChainsQueenEth/fintech/actions/workflows/ci.yml/badge.svg)](https://github.com/ChainsQueenEth/fintech/actions/workflows/ci.yml) [![Live Demo](https://img.shields.io/badge/Live-Demo-2ea44f?logo=githubpages&logoColor=white)](https://chainsqueeneth.github.io/fintech/)
+[![CI](https://github.com/ChainsQueenEth/fintech/actions/workflows/ci.yml/badge.svg)](https://github.com/ChainsQueenEth/fintech/actions/workflows/ci.yml) [![Live](https://img.shields.io/website?url=https%3A%2F%2Fchainsqueeneth.github.io%2Ffintech%2F&label=live&logo=githubpages&logoColor=white)](https://chainsqueeneth.github.io/fintech/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 VeroVault is a modern, mobile-first fintech experience inspired by best-in-class digital banks. It blends React 18, TypeScript, Tailwind CSS, Framer Motion, and React Query into a cohesive design system and developer workflow. The stack is wired together with Webpack 5, Babel, and PostCSS for a fully configurable build pipeline.
 
@@ -20,6 +20,7 @@ VeroVault is a modern, mobile-first fintech experience inspired by best-in-class
   - [✅ Unit Tests](#-unit-tests)
 - [🧭 Debugging & Observability](#-debugging--observability)
 - [🤖 CI](#-ci)
+- [🚢 Deployment](#-deployment)
 - [📦 Bundle Analysis](#-bundle-analysis)
 - [🎨 UI/UX Principles](#-uiux-principles)
 - [🗺️ Next Steps](#️-next-steps)
@@ -96,7 +97,28 @@ Notes
 - Babel presets: `preset-env`, `preset-react`, `preset-typescript`.
 - Loaders: `babel-loader`, `postcss-loader` (Tailwind, Autoprefixer).
 - Plugins: `HtmlWebpackPlugin`, `MiniCssExtractPlugin` (production), `dotenv` + `DefinePlugin` for `API_BASE_URL`, optional `BundleAnalyzer`.
+- Optional: alias React to Preact in production by setting `USE_PREACT=true` (see `webpack.config.js`).
 - Outputs: hashed assets in `static/js` and `static/css` plus `index.html`.
+
+### ⚡ Optional: Smaller bundles with Preact
+
+You can swap React for Preact Compat in production builds to reduce bundle size.
+
+- Locally:
+
+  ```bash
+  USE_PREACT=true pnpm build
+  ```
+
+- In CI (example step):
+
+  ```yaml
+  - name: Build (Preact)
+    env:
+      PUBLIC_PATH: /fintech/
+      USE_PREACT: 'true'
+    run: pnpm build
+  ```
 
 ## 🚀 Getting Started
 
@@ -126,6 +148,7 @@ The value of `API_BASE_URL` is injected at build time via Webpack's `DefinePlugi
 | ------------------ | ----------- |
 | `pnpm dev`         | Start the Webpack dev server with HMR at `http://localhost:3000` |
 | `pnpm build`       | Create an optimised production build in `dist/` |
+| `pnpm deploy`      | Build and publish `dist/` to the `gh-pages` branch (GitHub Pages) |
 | `pnpm lint`        | Run ESLint across `.ts`/`.tsx` source files |
 | `pnpm test`        | Execute the Jest test suite once |
 | `pnpm test:watch`  | Watch mode for the Jest suite |
@@ -221,6 +244,29 @@ pnpm test
 
 GitHub Actions workflow is provided at `.github/workflows/ci.yml` to run lint, typecheck, tests, and build on pushes and PRs to `main`/`master`. Push builds can inject `API_BASE_URL` via encrypted secrets.
 
+## 🚢 Deployment
+
+- Live site: https://chainsqueeneth.github.io/fintech/
+- Quick publish to GitHub Pages:
+
+  ```bash
+  pnpm deploy
+  ```
+
+- Configure in GitHub: Settings → Pages → Source: Deploy from branch → `gh-pages` / root.
+- Hosting under a subpath (like `/fintech/`) is common for GitHub project pages. This build supports subpaths via `PUBLIC_PATH`. The `pnpm deploy` script sets `PUBLIC_PATH=/fintech/` automatically, and the CI workflow (`.github/workflows/deploy.yml`) builds with the same setting.
+- If your repo name changes, update the subpath in `package.json` (`deploy` script), in the CI workflow env (`PUBLIC_PATH`), and (optionally) in `public/404.html`.
+- SPA routing: `public/404.html` is included to redirect hard-refreshes back to the app when hosted on GitHub Pages.
+
+### 🔗 Custom domain (CNAME)
+
+If you want to use a custom domain instead of the default `github.io` subpath:
+
+1. In your DNS, create a CNAME record pointing your domain to `chainsqueeneth.github.io`.
+2. In GitHub → Repository → Settings → Pages, set your custom domain.
+3. Add a `CNAME` file at the root of your published site (gh-pages). You can automate this by placing a `CNAME` file in your project root and configuring the deploy action to include it, or by adding a step to copy it into `dist/` before publishing.
+4. Remove or set `PUBLIC_PATH` to `/` when deploying to a root domain.
+
 ## 📦 Bundle Analysis
 
 Run `pnpm analyze` to build the app with `webpack-bundle-analyzer` enabled and inspect the output bundle composition.
@@ -235,7 +281,7 @@ Run `pnpm analyze` to build the app with `webpack-bundle-analyzer` enabled and i
 1. Connect to real financial APIs (banking aggregates, FX rates, insights)
 2. Expand authentication + onboarding surfaces
 3. Layer in visual regression snapshots (e.g., Storybook with Chromatic)
-4. Automate CI pipeline (lint, test, typecheck) with GitHub Actions
+4. Add CD to auto-deploy to GitHub Pages from CI (e.g., on tags or `main`)
 
 ---
 Crafted to showcase a modern fintech experience and a maintainable front-end foundation.
