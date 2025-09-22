@@ -2,6 +2,14 @@
 
 [![CI](https://github.com/ChainsQueenEth/fintech/actions/workflows/ci.yml/badge.svg)](https://github.com/ChainsQueenEth/fintech/actions/workflows/ci.yml) [![Live](https://img.shields.io/website?url=https%3A%2F%2Fchainsqueeneth.github.io%2Ffintech%2F&label=live&logo=githubpages&logoColor=white)](https://chainsqueeneth.github.io/fintech/) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=061C2A)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-06B6D4?logo=tailwindcss&logoColor=white)
+![Webpack](https://img.shields.io/badge/Webpack-5-8DD6F9?logo=webpack&logoColor=1b74ba)
+![Jest](https://img.shields.io/badge/Tests-Jest-99425B?logo=jest&logoColor=white)
+![Node](https://img.shields.io/badge/Node-20.x-339933?logo=node.js&logoColor=white)
+![pnpm](https://img.shields.io/badge/pnpm-9.x-F69220?logo=pnpm&logoColor=white)
+
 VeroVault is a modern, mobile-first fintech experience inspired by best-in-class digital banks. It blends React 18, TypeScript, Tailwind CSS, Framer Motion, and React Query into a cohesive design system and developer workflow. The stack is wired together with Webpack 5, Babel, and PostCSS for a fully configurable build pipeline.
 
 ## 📚 Table of Contents
@@ -23,7 +31,7 @@ VeroVault is a modern, mobile-first fintech experience inspired by best-in-class
 - [🚢 Deployment](#-deployment)
 - [📦 Bundle Analysis](#-bundle-analysis)
 - [🎨 UI/UX Principles](#-uiux-principles)
-- [🗺️ Next Steps](#️-next-steps)
+
 
 ## ✨ Highlights
 - Responsive, adaptive UI composed with Tailwind utilities and Framer Motion
@@ -91,14 +99,14 @@ flowchart LR
 ```
 
 Notes
-- `views/HomeView.tsx` lazy-loads heavy sections to reduce the initial bundle.
-- `webpack.config.js` extracts vendor libraries for better caching via `splitChunks` and uses `runtimeChunk: 'single'`.
-- Webpack orchestrates Loaders, Plugins, Optimization, Dev Server, and Outputs. Babel runs inside Webpack via `babel-loader` to transpile TS/JSX to JS.
-- Babel presets: `preset-env`, `preset-react`, `preset-typescript`.
-- Loaders: `babel-loader`, `postcss-loader` (Tailwind, Autoprefixer).
-- Plugins: `HtmlWebpackPlugin`, `MiniCssExtractPlugin` (production), `dotenv` + `DefinePlugin` for `API_BASE_URL`, optional `BundleAnalyzer`.
-- Optional: alias React to Preact in production by setting `USE_PREACT=true` (see `webpack.config.js`).
-- Outputs: hashed assets in `static/js` and `static/css` plus `index.html`.
+- [`src/views/HomeView.tsx`](src/views/HomeView.tsx) lazy-loads heavy sections to reduce the initial bundle.
+- [`webpack.config.js`](webpack.config.js) extracts vendor libraries for better caching via `splitChunks` and uses `runtimeChunk: 'single'`.
+- Webpack orchestrates Loaders, Plugins, Optimization, Dev Server, and Outputs. Babel runs inside Webpack via `babel-loader` to transpile TS/JSX to JS (see [`webpack.config.js`](webpack.config.js)).
+- Babel config and presets: see [`babel.config.js`](babel.config.js) — uses `@babel/preset-env`, `@babel/preset-react`, `@babel/preset-typescript`.
+- CSS pipeline: `postcss-loader` with Tailwind and Autoprefixer — see [`postcss.config.cjs`](postcss.config.cjs) and [`tailwind.config.js`](tailwind.config.js).
+- Plugins in Webpack: `HtmlWebpackPlugin` (template [`public/index.html`](public/index.html)), `MiniCssExtractPlugin` (production), `dotenv-webpack` + `DefinePlugin` injecting `API_BASE_URL` (see [`.env.example`](.env.example)), optional `BundleAnalyzer` when `ANALYZE=1`.
+- Optional: alias React to Preact in production by setting `USE_PREACT=true` (see [`webpack.config.js`](webpack.config.js)).
+- Outputs: hashed assets in `static/js` and `static/css` plus `index.html` (configured in [`webpack.config.js`](webpack.config.js)).
 
 ### ⚡ Optional: Smaller bundles with Preact
 
@@ -277,11 +285,3 @@ Run `pnpm analyze` to build the app with `webpack-bundle-analyzer` enabled and i
 - Motion used sparingly with Framer Motion, respecting reduced motion preferences
 - Tailwind utilities with custom tokens (configured in `tailwind.config.js`); no styled-components
 
-## 🗺️ Next Steps
-1. Connect to real financial APIs (banking aggregates, FX rates, insights)
-2. Expand authentication + onboarding surfaces
-3. Layer in visual regression snapshots (e.g., Storybook with Chromatic)
-4. Add CD to auto-deploy to GitHub Pages from CI (e.g., on tags or `main`)
-
----
-Crafted to showcase a modern fintech experience and a maintainable front-end foundation.
