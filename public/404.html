@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page Not Found - Redirecting…</title>
+    <meta http-equiv="refresh" content="0; url=/fintech/" />
+    <script>
+      // JS fallback: redirect to the project root on GitHub Pages
+      (function () {
+        var base = '/fintech/';
+        var loc = window.location;
+        if (!loc.pathname.startsWith(base)) {
+          // Best effort if repo name changes
+          var parts = loc.pathname.split('/').filter(Boolean);
+          if (parts.length > 0) base = '/' + parts[0] + '/';
+        }
+        loc.replace(base);
+      })();
+    </script>
+    <style>
+      html, body { height: 100%; }
+      body { display: grid; place-items: center; background: #0F172A; color: #fff; font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif; }
+      .card { text-align: center; padding: 2rem; border: 1px solid rgba(255,255,255,0.1); border-radius: .75rem; background: rgba(255,255,255,0.04); }
+      a { color: #60A5FA; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h1>Redirecting…</h1>
+      <p>If you are not redirected automatically, <a href="/fintech/">click here</a>.</p>
+    </div>
+  </body>
+</html>

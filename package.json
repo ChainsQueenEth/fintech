@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "deploy": "pnpm build && gh-pages -d dist",
+    "deploy": "cross-env PUBLIC_PATH=/fintech/ pnpm build && gh-pages -d dist",
     "dev": "webpack serve --config webpack.config.js --mode development",
     "build": "webpack --config webpack.config.js --mode production",
     "lint": "eslint 'src/**/*.{ts,tsx}'",

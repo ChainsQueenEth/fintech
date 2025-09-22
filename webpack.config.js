@@ -7,6 +7,9 @@ const webpack = require('webpack');
 
 const isProduction = process.env.NODE_ENV === 'production';
 const devPort = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+// PUBLIC_PATH allows hosting under a subpath (e.g., GitHub Pages project pages like /fintech/)
+// Defaults to "/" for local dev and generic hosting.
+const publicPath = process.env.PUBLIC_PATH || '/';
 
 /** @type {import('webpack').Configuration} */
 module.exports = {
@@ -19,7 +22,7 @@ module.exports = {
       : 'static/js/[name].chunk.js',
     assetModuleFilename: 'static/media/[hash][ext][query]',
     clean: true,
-    publicPath: '/'
+    publicPath
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
